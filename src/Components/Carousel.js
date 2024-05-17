@@ -57,7 +57,7 @@ const Carousel = () => {
               width: "100%",
               height: "100%",
               textDecoration: "none",
-              color: "white",
+              color: "#00414A",
             }}
             to="dashboard"
           >
@@ -67,7 +67,7 @@ const Carousel = () => {
       </BoxStyled>
       <ImageStyled
         component="img"
-        src={`${window.location.origin}/images/carousel_image.png`}
+        src={`${window.location.origin}/images/carousel_image.jpg`}
         alt=""
       />
     </Box>
