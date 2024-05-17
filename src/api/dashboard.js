@@ -11,7 +11,7 @@ const parseStatusesToUsable = (statuses) => {
   return data;
 };
 
-export const fetchChartStatusesUI = async () => {
+const fetchChartStatusesUI = async () => {
   try {
     const response = await axios.get(`ui/chart_status`);
     return parseStatusesToUsable(response.data);
@@ -19,8 +19,7 @@ export const fetchChartStatusesUI = async () => {
     console.error(error);
   }
 };
-
-export const fetchChartStatusesAPI = async () => {
+const fetchChartStatusesAPI = async () => {
   try {
     const response = await axios.get(`api/chart_status`);
 
@@ -30,24 +29,60 @@ export const fetchChartStatusesAPI = async () => {
   }
 };
 
-export const fetchTodayTestsUI = async () => {
+export const fetchLineChartData = async ({ apiDate, uiDate }) => {
   try {
-    const response = await axios.get(`ui/today`);
+    const uiResponse = await axios.get(`ui/average_duration`, {
+      params: {
+        date: uiDate,
+      },
+    });
+    const apiResponse = await axios.get(`api/average_duration`, {
+      params: {
+        date: apiDate,
+      },
+    });
+
+    return {
+      ui: uiResponse.data.map((element) => ({
+        ...element,
+        duration: +element.duration.split(":").join("."),
+      })),
+      api: apiResponse.data.map((element) => ({
+        ...element,
+        duration: +element.duration.split(":").join("."),
+      })),
+    };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchTodayTestsUI = async (date) => {
+  try {
+    const response = await axios.get(`ui/today`, {
+      params: {
+        date: date,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
-export const fetchTodayTestsAPI = async () => {
+export const fetchTodayTestsAPI = async (date) => {
   try {
-    const response = await axios.get(`api/today`);
+    const response = await axios.get(`api/today`, {
+      params: {
+        date: date,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const fetchPassedFailedTestsAPI = async () => {
+const fetchPassedFailedTestsAPI = async () => {
   try {
     const response = await axios.get(`api/passed_failed`);
     return response.data;
@@ -55,11 +90,37 @@ export const fetchPassedFailedTestsAPI = async () => {
     console.error(error);
   }
 };
-
-export const fetchPassedFailedTestsUI = async () => {
+const fetchPassedFailedTestsUI = async () => {
   try {
     const response = await axios.get(`ui/passed_failed`);
     return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchChartStatuses = async () => {
+  try {
+    const api = await fetchChartStatusesAPI();
+    const ui = await fetchChartStatusesUI();
+    return {
+      api: api,
+      ui: ui,
+    };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchPassedFailedTests = async () => {
+  try {
+    const api = await fetchPassedFailedTestsAPI();
+    const ui = await fetchPassedFailedTestsUI();
+
+    return {
+      ui: ui,
+      api: api,
+    };
   } catch (error) {
     console.error(error);
   }
