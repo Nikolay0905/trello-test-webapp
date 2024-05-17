@@ -17,11 +17,11 @@ axios.defaults.baseURL = BACKEND_URL;
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#7734e7",
+      main: "#373F26",
       light: "#cd79f5",
     },
     secondary: {
-      main: "#0132fc",
+      main: "#D9F720",
       dark: "#010101",
       white: "#fffeff",
       grey: "#F0F3FF",
@@ -30,6 +30,11 @@ const theme = createTheme({
       tia: "#cc4f0e",
       sinbad: "#94ced3",
     },
+    interrupt: "#1e75b3",
+    timeout: "#999799",
+    pass: "#2ca02c",
+    fail: "#d72828",
+    cancel: "#ff7f0f",
   },
 });
 

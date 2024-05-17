@@ -1,1 +1,8 @@
 export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+export const GITLAB_TOKEN = process.env.REACT_APP_GITLAB_SECRET_TOKEN;
+
+export const PIPELINE_ID_API = process.env.REACT_APP_API_AUTOMATION_PIPELINE_ID;
+export const GITLAB_URL_API = process.env.REACT_APP_API_AUTOMATION_PROJECT_URL;
+
+export const GITLAB_URL_UI = process.env.REACT_APP_UI_AUTOMATION_PROJECT_URL;
+export const PIPELINE_ID_UI = process.env.REACT_APP_UI_AUTOMATION_PIPELINE_ID;
